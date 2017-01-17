@@ -1,0 +1,50 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+group = 'com.fin'
+version = 'info'
+
+description = """FIMApp"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+
+	compile "org.springframework.boot:spring-boot-starter-web:1.4.2.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-data-rest:1.4.2.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf:1.4.2.RELEASE"
+	compile	"org.springframework.boot:spring-boot-starter-data-mongodb:1.4.2.RELEASE"
+	
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.4.2.RELEASE'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.2.RELEASE'
+    
+    compile group: 'javax.servlet', name: 'jstl', version:'1.2'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version:'1.1.1'
+    compile group: 'com.google.code.gson', name: 'gson', version:'2.7'
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper', version:'8.5.6'
+    
+   testCompile 'junit:junit:4.8.2'
+	compile "org.mockito:mockito-all:1.10.19"
+    compile "org.powermock:powermock-mockito-release-full:1.6.4"
+    
+}

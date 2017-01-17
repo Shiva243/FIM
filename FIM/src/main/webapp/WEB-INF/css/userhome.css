@@ -1,0 +1,10 @@
+input.ng-invalid.ng-touched {
+	border: 2px solid red;
+}
+span{
+	 color: red;
+}
+.grid {
+		  width: 500px;
+		  height: 250px;
+		}

@@ -46,5 +46,7 @@ dependencies {
    testCompile 'junit:junit:4.8.2'
 	compile "org.mockito:mockito-all:1.10.19"
     compile "org.powermock:powermock-mockito-release-full:1.6.4"
+    compile "org.springframework.boot:spring-boot-devtools:1.4.2.RELEASE"
+    
     
 }

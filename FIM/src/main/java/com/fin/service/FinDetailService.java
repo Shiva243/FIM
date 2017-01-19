@@ -10,4 +10,5 @@ public interface FinDetailService {
 	FinanceDetails findByChitAmount(String chitAmount);
 	FinanceDetails save(FinanceDetails finDetails);
 	List<FinanceDetails> findAll();
+	FinanceDetails findByChitName(String chitName);
 }

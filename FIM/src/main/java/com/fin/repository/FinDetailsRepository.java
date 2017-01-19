@@ -7,5 +7,6 @@ import com.fin.model.FinanceDetails;
 @Repository("finDetailsRepo")
 public interface FinDetailsRepository extends MongoRepository<FinanceDetails, Long>{
 	FinanceDetails findByChitAmount(String amount);
+	FinanceDetails findByChitName(String chitName);
 
 }

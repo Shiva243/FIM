@@ -1,5 +1,6 @@
 package com.fin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class FindDetailsController {
 	@RequestMapping(value="/addfindetail", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String addFinDetail(@RequestBody FinanceDetails finDetails){
-		Log.info(this.getClass(), "Inside addFinDetail ["+finDetails.getChitAmount()+"]");
+		Log.info(this.getClass(), "Inside addFinDetail ["+finDetails.getChitName()+"]");
 		finDetails.set_id(ResponseUtil.getCurrentDateTime());
 		finDetails.setModifyDate(finDetails.getCreatedDate());
 		if(finDetailService.save(finDetails)!=null){
@@ -37,17 +38,24 @@ public class FindDetailsController {
 		}
 		return ResponseUtil.getJsonObject("Failed","001","Something wrong, please entered once again").toString();
 	}
-	@RequestMapping(value="/chitamountexsist", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/chitnameexsist", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public FinanceDetails isChitAmountExsist(@RequestParam("chitAmount") String chitAmount){
-		Log.info(this.getClass(), "Inside isChitAmountValid chitAmount is ["+chitAmount+"]");
-		return finDetailService.findByChitAmount(chitAmount);
+	public FinanceDetails isChitNameExsist(@RequestParam("chitName") String chitName){
+		Log.info(this.getClass(), "Inside isChitAmountValid chitAmount is ["+chitName+"]");
+		return finDetailService.findByChitName(chitName);
 	}
 	@RequestMapping(value="/getfindetails", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<FinanceDetails> getFinDetails(){
-		Log.info(this.getClass(), "Inside getFinDetails ");
-		return finDetailService.findAll();
+	public List<FinanceDetails> getFinDetails(@RequestParam(value="chitName",defaultValue = "chitName", required = false) String chitName){
+		Log.info(this.getClass(), "Inside getFinDetails chitAmount ["+chitName+"]");
+		if(chitName.equals("chitName")){
+			return finDetailService.findAll();
+		}else{
+			List<FinanceDetails> list=new ArrayList<>();
+			list.add(finDetailService.findByChitName(chitName));
+			return list;
+		}
+		
 	}
 
 }

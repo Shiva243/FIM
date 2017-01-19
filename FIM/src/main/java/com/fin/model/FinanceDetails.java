@@ -9,6 +9,7 @@ public class FinanceDetails {
 	@Id
 	private Long _id;
 	@Indexed(unique = true)
+	private String chitName;
 	private String chitAmount;
 	private String chitMonths;
 	private String intrestRate;
@@ -49,6 +50,12 @@ public class FinanceDetails {
 	}
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
+	}
+	public String getChitName() {
+		return chitName;
+	}
+	public void setChitName(String chitName) {
+		this.chitName = chitName;
 	}
 	
 }

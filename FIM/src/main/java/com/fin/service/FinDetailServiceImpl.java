@@ -32,4 +32,10 @@ public class FinDetailServiceImpl implements FinDetailService{
 		return finDetailRepo.findAll();
 	}
 
+	@Override
+	public FinanceDetails findByChitName(String chitName) {
+		Log.info(this.getClass(), "Inside findByChitName ["+chitName+"]");
+		return finDetailRepo.findByChitName(chitName);
+	}
+
 }

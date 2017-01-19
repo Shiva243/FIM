@@ -10,21 +10,30 @@
 	<link rel="stylesheet" href="./css/userhome.css"></link>
 	<link rel="stylesheet" href="./css/ui-grid.css"></link>
 	<script src="./js/ui-grid.js"></script>
-	<script src="./js/fincontroller.js"></script>
+	<script src="./js/fin/fincontroller.js"></script>
+	<script src="http://ui-grid.info/release/ui-grid-unstable.js"></script>
+    
 </head>
 <body>
 <div class="col-md-6 col-md-offset-3" ng-app="finApp" ng-controller="finController">
 		<h2>Finance Details</h2>
 		<br>
 		<form  name="finform" >
-			<div class="form-group" >
-				<label for="chitAmount">Chit Amount:</label> <input type="text"  placeholder="Enter ChitAmount"
-					class="form-control" id="chitAmount" name="chitAmount" ng-model="chitAmount"  ng-pattern="/^[1-9]+[0-9]{2,4}[A-Z]{1}$/"
-					 ng-required="true"  ng-change="chitamountexsist()"/>
+		<div class="form-group" >
+				<label for="chitName">Chit Name:</label> <input type="text"  placeholder="Enter ChitName"
+					class="form-control" id="chitName" name="chitName" ng-model="chitName"  ng-pattern="/^[a-zA-Z0-9 ]*$/"
+					 ng-required="true"  ng-change="chitnameexsist()" ng-minlength="5"/>
 					 <span
-						ng-show=" finform.chitAmount.$error.pattern && (!finform.$pristine|| finform.$submitted)">Enter Numeric values and last value should be 
-						Alphabet. Eg : 123A, 1234B, 12345C</span>
-						<span  ng-bind="chitamounterror" ng-valid="false">
+						ng-show=" finform.chitName.$error.pattern && (!finform.$pristine|| finform.$submitted)">Enter Alpha Numeric values only</span>
+						<span  ng-bind="chitnameerror" ng-valid="false">
+			</div>
+			<div class="form-group" >
+				<label for="chitAmount">Chit Amount:</label> <input type="number"  placeholder="Enter ChitAmount"
+					class="form-control" id="chitAmount" name="chitAmount" ng-model="chitAmount"  
+					 ng-required="true" min="500" 
+					max="10000" step="500" />
+					 <span
+						ng-show=" finform.chitAmount.$error.pattern && (!finform.$pristine|| finform.$submitted)">Enter Numeric values . Eg : 123, 1234, 12345</span>
 			</div>
 			<div class="form-group">
 				<label for="chitMonths">Months :</label> <input type="number"  
@@ -42,8 +51,8 @@
 			</div>
 			<button type="submit" class="btn btn-primary"  ng-disabled="finform.$invalid" ng-click="addfindetail(finform.$valid)">Submit</button>
 		</form>
-			<input type="search" name="amountSearch" id="amountSearch" ng-model="amountSearch" ng-required="true">
-	 		 <input type="submit" class="btn btn-primary" ng-disabled="searchform.$invalid" value="Search"ng-click="searchchitamount()">
+			<input type="search" name="nameSearch" id="nameSearch" ng-model="nameSearch" ng-required="true">
+	 		 <input type="submit" class="btn btn-primary" ng-disabled="searchform.$invalid" value="Search"ng-click="searchchitname()">
 		 <div ui-grid="gridOptions" class="grid"></div>
 
 	</div>

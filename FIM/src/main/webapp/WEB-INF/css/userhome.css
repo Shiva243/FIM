@@ -5,6 +5,10 @@ span{
 	 color: red;
 }
 .grid {
-		  width: 500px;
+		  width: 850px;
 		  height: 250px;
-		}
+}
+.ui-grid-header-canvas{
+    background-color: black;
+    color: white;
+}

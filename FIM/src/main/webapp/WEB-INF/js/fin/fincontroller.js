@@ -1,13 +1,13 @@
-var app = angular.module("finApp", [ "ui.grid" ]);
+var app = angular.module("finApp", [ "ui.grid","FinService",'angularModalService' ]);
 app
 		.controller(
 				"finController",
-				function($scope, $filter, $http, $window) {
+				function($scope, $filter, $http, $window,finData) {
 					$scope.createdDate = $filter("date")(Date.now(),
 							'yyyy-MM-dd');
 					$scope.chitMonths = 10;
 					$scope.intrestRate = 1;
-					$scope.gridOptions = { enableColumnMenus: false};
+					/*$scope.gridOptions = { enableColumnMenus: false};
 					$scope.gridOptions.onRegisterApi = function(gridApi) {
 						$scope.gridApi = gridApi;
 					};
@@ -16,15 +16,10 @@ app
 						console.log(response.data);
 						$scope.gridOptions.data = response.data;
 						console.log($scope.gridOptions.data);
-					});
+					});*/
 					$scope.chitnameexsist = function() {
 						$scope.chitnameerror = '';
-						$http
-								.get("/chitnameexsist", {
-									params : {
-										'chitName' : $scope.chitName
-									}
-								})
+						finData.chitnameexsist($scope.chitName)
 								.then(
 										function(response) {
 											console
@@ -67,7 +62,7 @@ app
 							createdDate : $scope.createdDate
 						};
 						console.log("log" + angular.toJson(data));
-						$http.post("/addfindetail", angular.toJson(data)).then(
+						finData.addfindetail(data).then(
 								function(response) {
 									console.log("addfindetail response ["
 											+ response.data + "] value");
@@ -80,33 +75,114 @@ app
 											+ errResponse + "] value");
 								});
 					}
+					
+						
+				});
+
+app
+		.controller(
+				"gridController",
+				function($scope, $filter, $http, $window,finData,ModalService) {
+					$scope.gridOptions1 = { enableColumnMenus: false};
+					 $scope.gridOptions1.columnDefs = [{
+				            name: 'Action',
+				            cellTemplate: '<img ng-src="././images/fin/del.jpg" ng-click="grid.appScope.deletemodal(row)"> <img ng-src="././images/fin/edit.png" ng-click="grid.appScope.editmodal(row)" >'
+				        }, {
+				            name: 'chitName',
+				            field: 'chitName'
+				        }, 
+				        {
+				            name: 'chitAmount',
+				            field: 'chitAmount'
+				        },
+				        {
+				            name: 'chitMonths',
+				            field: 'chitMonths'
+				        },
+				        {
+				            name: 'intrestRate',
+				            field: 'intrestRate'
+				        },
+				        {
+				            name: 'createdDate',
+				            field: 'createdDate'
+				        }];
+					
+					$scope.gridOptions1.onRegisterApi = function(gridApi) {
+						$scope.gridApi = gridApi;
+					};
+					
+					$http.get("/getfindetails").then(function(response) {
+						$scope.gridOptions1.data = response.data;
+						console.log($scope.gridOptions1.data);
+					});
 					$scope.searchchitname = function() {
 						console
-								.log("Inside searchchitamount amountSearch value is ["
-										+ $scope.amountSearch + "]");
-						$http
-								.get("/getfindetails", {
-									params : {
-										'chitName' : $scope.nameSearch
-									}
-								})
+								.log("Inside searchchitname  value is ["
+										+ $scope.nameSearch + "]");
+						finData.searchchitname($scope.nameSearch)
 								.then(
 										function(response) {
 											console
-													.log("Inside searchchitamount response is ["
-															+ response.data
+													.log("Inside searchchitname response is ["
+															+ response.data._id
 															+ "]");
 											//$scope.gridOptions = {};
-											$scope.gridOptions.data = response.data;
+											if(response.data!=''){
+												$scope.gridOptions1.data = response.data;
+											}
+											
 											//$scope.gridApi.grid.refresh();
 										},
 										function(errResponse) {
 											console
-													.log("Inside searchchitamount ["
+													.log("Inside searchchitname ["
 															+ errResponse
 															+ "] value");
 										});
 					}
+					
+					$scope.deletemodal = function(row) {
+						 console.log(row.entity._id);
+						 $http.delete("/deletefindetail",{
+								params : {
+									'id' : row.entity._id
+								}
+							}).then(function(response){
+								console.log("delete successfully");
+								$window.location.reload();
+							},function(errorResponse){
+								console.log("can't able to delete the record, there is some internal issue");
+							});
+			        };
+			        $scope.editmodal = function(row) {
+			        	 finData.getSelect=row.entity;
+			        	 console.log(finData.getSelect);
+			        	 alert("");
+			        	 ModalService.showModal({
+			        		 url:"/",
+			        		 templateUrl: "fin.html",
+			                 controller: "ModalDialogController"
+			               }).then(function(modal) {
+			                 modal.close.then(function(result) {
+			                	 console.log("success");
+			                   $scope.customResult = "All good!";
+			                 });
+			               },function(modal){
+			            	   console.log("error");
+			               });
+			        };
 						
 				});
+app.controller("ModalDialogController",['$scope',  function ($scope) {
+	console.log("test");
+	 $scope.ok = function () {
+		 console.log("ok");
+	 }
+	 $scope.cancel = function () {
+		 console.log("cancel");
+	 }
+}]);
+
+
 

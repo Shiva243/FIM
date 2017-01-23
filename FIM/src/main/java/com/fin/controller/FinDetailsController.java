@@ -18,7 +18,7 @@ import com.fin.service.FinDetailService;
 import com.fin.util.ResponseUtil;
 
 @Controller
-public class FindDetailsController {
+public class FinDetailsController {
 	
 	@Autowired
 	FinDetailService finDetailService;
@@ -26,6 +26,10 @@ public class FindDetailsController {
 	@RequestMapping("/findetailhome")
 	public String finDetailHome(){
 		return "html/findetailhome";
+	}
+	@RequestMapping("/fin")
+	public String fin(){
+		return "html/fin";
 	}
 	@RequestMapping(value="/addfindetail", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -57,5 +61,10 @@ public class FindDetailsController {
 		}
 		
 	}
-
+	@RequestMapping(value="/deletefindetail", method=RequestMethod.DELETE,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public void deleteFinDetail(@RequestParam(value="id") Long id){
+		Log.info(this.getClass(), "Inside deleteFinDetail id ["+id+"]");
+		finDetailService.delete(id);
+	}
 }

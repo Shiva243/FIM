@@ -11,4 +11,5 @@ public interface FinDetailService {
 	FinanceDetails save(FinanceDetails finDetails);
 	List<FinanceDetails> findAll();
 	FinanceDetails findByChitName(String chitName);
+	void delete(Long id);
 }

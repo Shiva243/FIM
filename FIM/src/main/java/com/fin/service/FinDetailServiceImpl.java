@@ -38,4 +38,10 @@ public class FinDetailServiceImpl implements FinDetailService{
 		return finDetailRepo.findByChitName(chitName);
 	}
 
+	@Override
+	public void delete(Long id) {
+		Log.info(this.getClass(), "Inside delete ["+id+"]");
+		finDetailRepo.delete(id);
+	}
+
 }

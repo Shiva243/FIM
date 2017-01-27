@@ -1,4 +1,4 @@
-var app = angular.module("finApp", [ "ui.grid","FinService",'angularModalService' ]);
+var app = angular.module("finApp", [ 'ui.grid','FinService','ui.bootstrap' ]);
 app
 		.controller(
 				"finController",
@@ -57,9 +57,9 @@ app
 						var data = {
 							chitAmount : $scope.chitAmount,
 							chitMonths : $scope.chitMonths,
-							chitName : $scope.chitName,
+							chitName : angular.uppercase($scope.chitName),
 							intrestRate : $scope.intrestRate,
-							createdDate : $scope.createdDate
+						createdDate : $scope.createdDate
 						};
 						console.log("log" + angular.toJson(data));
 						finData.addfindetail(data).then(
@@ -82,7 +82,7 @@ app
 app
 		.controller(
 				"gridController",
-				function($scope, $filter, $http, $window,finData,ModalService) {
+				function($scope,  $http, $window,finData,$modal) {
 					$scope.gridOptions1 = { enableColumnMenus: false};
 					 $scope.gridOptions1.columnDefs = [{
 				            name: 'Action',
@@ -106,6 +106,9 @@ app
 				        {
 				            name: 'createdDate',
 				            field: 'createdDate'
+				        },{
+				            name: 'modifyDate',
+				            field: 'modifyDate'
 				        }];
 					
 					$scope.gridOptions1.onRegisterApi = function(gridApi) {
@@ -144,6 +147,7 @@ app
 					
 					$scope.deletemodal = function(row) {
 						 console.log(row.entity._id);
+						 $window.alert("Are you sure delete the record?")
 						 $http.delete("/deletefindetail",{
 								params : {
 									'id' : row.entity._id
@@ -158,31 +162,46 @@ app
 			        $scope.editmodal = function(row) {
 			        	 finData.getSelect=row.entity;
 			        	 console.log(finData.getSelect);
-			        	 alert("");
-			        	 ModalService.showModal({
-			        		 url:"/",
-			        		 templateUrl: "fin.html",
-			                 controller: "ModalDialogController"
-			               }).then(function(modal) {
-			                 modal.close.then(function(result) {
-			                	 console.log("success");
-			                   $scope.customResult = "All good!";
-			                 });
-			               },function(modal){
-			            	   console.log("error");
-			               });
+			        	 var modalInstance= $modal.open({
+			        		 templateUrl: '/updatefin.html',
+			        		 controller: 'finUpdateController',
+			        		 bindings: {
+			        			    resolve: '<',
+			        			    close: '&',
+			        			    dismiss: '&'
+			        			  },
+			        		 });
 			        };
 						
 				});
-app.controller("ModalDialogController",['$scope',  function ($scope) {
-	console.log("test");
-	 $scope.ok = function () {
-		 console.log("ok");
-	 }
-	 $scope.cancel = function () {
-		 console.log("cancel");
-	 }
-}]);
-
-
+app
+.controller(
+		"finUpdateController",
+		function($scope,$window,$http,finData) {
+			 console.log(finData.getSelect);
+			 var $ctrl = this;
+			$scope.chitName=finData.getSelect.chitName;
+			 $scope.chitAmount=parseInt(finData.getSelect.chitAmount);
+			$scope.chitMonths=parseInt(finData.getSelect.chitMonths);
+			$scope.intrestRate=finData.getSelect.intrestRate;
+			$scope.createdDate=new Date(finData.getSelect.createdDate);
+			$scope.updatefindetail=function(valid){
+				if(valid){
+					var data = {
+						chitAmount : $scope.chitAmount,
+						chitMonths : $scope.chitMonths,
+						chitName : $scope.chitName,
+						intrestRate : $scope.intrestRate,
+					};
+					$http.post("/updatefindetail",angular.toJson(data)).then(function(response){
+						console.log(response);
+						$window.location.reload();
+					})
+				}
+			}
+			$scope.close = function () {
+				//$window.location.reload();
+				
+				};
+		});
 

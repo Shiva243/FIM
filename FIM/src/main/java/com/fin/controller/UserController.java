@@ -1,5 +1,8 @@
 package com.fin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,7 +18,7 @@ import com.fin.service.UserService;
 import com.fin.util.ResponseUtil;
 
 @Controller
-public class UserRegisterController {
+public class UserController {
 	
 	@Autowired
 	UserService userService;
@@ -29,7 +32,12 @@ public class UserRegisterController {
 	@RequestMapping("/userhome")
 	public String userHome() {
 		Log.info(this.getClass(), "Inside userHome");
-		return "html/userhome";
+		return "html/user/userhome";
+	}
+	@RequestMapping("/userlist")
+	public String getUserList() {
+		Log.info(this.getClass(), "Inside getUserList");
+		return "html/user/userlist";
 	}
 	@RequestMapping(value="/usernameexsist", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -69,5 +77,16 @@ public String addUser(@RequestBody UserDetails user) {
 	}
 	return ResponseUtil.getJsonObject("Failed","001","Something wrong, please registered once again").toString();
 }
-	
+@RequestMapping(value="/getuserlist", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+@ResponseBody
+public List<UserDetails> getUserList(@RequestParam(value ="userName",defaultValue = "userName", required = false) String userName) {
+	Log.info(this.getClass(), "Inside getUserList userName is ["+userName+"]");
+	if(userName.equals("userName")){
+		return userService.findAll();
+	}else{
+		List<UserDetails> userList=new ArrayList<>();
+		userList.add(userService.findByUserName(userName));
+		return userList;
+	}
+}
 }

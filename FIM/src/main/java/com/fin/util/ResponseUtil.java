@@ -1,9 +1,13 @@
 package com.fin.util;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.json.simple.JSONObject;
+
+
 
 public class ResponseUtil {
 	@SuppressWarnings("unchecked")
@@ -16,5 +20,9 @@ public class ResponseUtil {
 	}
 	public static Long getCurrentDateTime(){
 		return Long.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYddHHmmssSSS")));
+	}
+	public static String getDateString(String type){
+		return new SimpleDateFormat(type).format(new Date());
+		
 	}
 }

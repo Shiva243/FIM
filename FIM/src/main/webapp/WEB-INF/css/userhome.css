@@ -12,3 +12,7 @@ span{
     background-color: black;
     color: white;
 }
+.userGrid {
+		  width: 1000px;
+		  height: 500px;
+}

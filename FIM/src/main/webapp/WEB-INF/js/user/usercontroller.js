@@ -50,7 +50,10 @@ app
 						if (valid) {
 							console.log("addUser Json data is [" +angular.toJson($scope.empc.user) + "]");
 							UserData.addUser(angular.toJson($scope.empc.user)).then(function(response) {
-								console.log("addUser Json data is ");
+								alert("User Registration Successfully");
+								$window.location.href = '/userlist';
+							},function(errorResponse){
+								alert("Can't able to add user, please try after some time");
 							});
 						}
 					}

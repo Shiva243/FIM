@@ -1,5 +1,7 @@
 package com.fin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,12 @@ public class UserServiceImpl implements UserService {
 	public UserDetails findByMobileNo(String mobileNo) {
 		Log.info(this.getClass(), "Inside findByMobileNo mobileNo is [" + mobileNo + "]");
 		return userRepo.findByMobileNo(mobileNo);
+	}
+
+	@Override
+	public List<UserDetails> findAll() {
+		Log.info(this.getClass(), "Inside findAll");
+		return userRepo.findAll();
 	}
 
 }

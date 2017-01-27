@@ -14,7 +14,7 @@ userService.factory('UserData',['$http',function($http){
 		return $http.get("/mobilenoexsist",{params: {'mobileNo': mobileNo}});
 	}
 	userdata.addUser = function(userInfo){
-		console.log("Inside service userInfo ["+userInfo.age+"")
+		console.log("Inside service userInfo ["+userInfo+"")
 		return $http.post("/adduser", userInfo);
 	}
 	userdata.getAllUsers = function(){

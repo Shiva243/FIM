@@ -25,11 +25,11 @@ public class FinDetailsController {
 	
 	@RequestMapping("/findetailhome")
 	public String finDetailHome(){
-		return "html/findetailhome";
+		return "html/fin/findetailhome";
 	}
-	@RequestMapping("/fin")
+	@RequestMapping("/updatefin")
 	public String fin(){
-		return "html/fin";
+		return "html/fin/updatefin";
 	}
 	@RequestMapping(value="/addfindetail", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -66,5 +66,22 @@ public class FinDetailsController {
 	public void deleteFinDetail(@RequestParam(value="id") Long id){
 		Log.info(this.getClass(), "Inside deleteFinDetail id ["+id+"]");
 		finDetailService.delete(id);
+	}
+	@RequestMapping(value="/updatefindetail", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String updateFinDetail(@RequestBody FinanceDetails finDetails){
+		Log.info(this.getClass(), "Inside updateFinDetail chitName ["+finDetails.getChitName()+"]");
+		FinanceDetails dbFinDetail = finDetailService.findByChitName(finDetails.getChitName());
+		if(finDetailService.save(setFindetails(dbFinDetail,finDetails)) !=null){
+			return ResponseUtil.getJsonObject("Success","000","FinanceDetails Updated Successfully").toString();
+		}
+		return ResponseUtil.getJsonObject("Failed","001","Something wrong, please try after some time").toString();
+	}
+	
+	private FinanceDetails setFindetails(FinanceDetails dbFinDetail,FinanceDetails finDetail){
+		dbFinDetail.setChitAmount(finDetail.getChitAmount());
+		dbFinDetail.setChitMonths(finDetail.getChitMonths());
+		dbFinDetail.setIntrestRate(finDetail.getIntrestRate());
+		return dbFinDetail;
 	}
 }

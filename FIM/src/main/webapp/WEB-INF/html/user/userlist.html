@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>User Details</title>
+<link rel="stylesheet" href="./css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="./css/userhome.css"></link>
+<link rel="stylesheet" href="./css/ui-grid.css"></link>
+<link rel="icon" href="./images/fin/fin.jpg" type="image/gif" sizes="32x32">
+<script src="./js/angular/angular.js"></script>
+<script src="./js/angular/angular.min.js"></script>
+<script src="./js/angular/ui-grid.js"></script>
+<script src="././js/user/userlistcontroller.js"></script>
+</head>
+<body ng-app="userApp">
+	<div class="col-md-6 col-md-offset-1" ng-controller="userController">
+		<div ui-grid="userGridOptions" class="userGrid"></div>
+	</div>
+	
+</body>
+</html>

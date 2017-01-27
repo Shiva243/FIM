@@ -44,4 +44,5 @@ public class FinDetailServiceImpl implements FinDetailService{
 		finDetailRepo.delete(id);
 	}
 
+
 }

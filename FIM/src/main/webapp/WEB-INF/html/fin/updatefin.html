@@ -1,0 +1,56 @@
+<html>
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>FinUpdate</title>
+<link rel="stylesheet" href="./css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="./css/userhome.css"></link>
+<script src="./js/angular/angular.min.js"></script>
+ <script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script> 
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-resource.js"></script>
+	 	<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script> 
+</head>
+<body>
+	<div class="col-md-6 col-md-offset-3" ng-controller="finUpdateController">
+		<h2>Update Finance Details</h2>
+		<br>
+		<form name="finform">
+			<div class="form-group">
+				<label for="chitName">Chit Name:</label> <input type="text"
+					placeholder="Enter ChitName" class="form-control" id="chitName"
+					name="chitName" ng-model="chitName" onkeydown="return false"
+					ng-required="true" disabled />
+			</div>
+			<div class="form-group">
+				<label for="chitAmount">Chit Amount:</label> <input type="number"
+					placeholder="Enter ChitAmount" class="form-control" id="chitAmount"
+					name="chitAmount" ng-model="chitAmount" ng-required="true"
+					min="500" max="10000" step="500" /> <span
+					ng-show=" finform.chitAmount.$error.pattern && (!finform.$pristine|| finform.$submitted)">Enter
+					Numeric values . Eg : 123, 1234, 12345</span>
+			</div>
+			<div class="form-group">
+				<label for="chitMonths">Months :</label> <input type="number"
+					class="form-control" id="chitMonths" name="chitMonths"
+					ng-model="chitMonths" min="10" max="50" step="5"
+					onkeydown="return false" />
+			</div>
+			<div class="form-group">
+				<label for="intrestRate">IntrestRate:</label> <input type="text"
+					class="form-control" id="intrestRate" name="intrestRate"
+					ng-model="intrestRate"
+					onkeydown="return false" />
+			</div>
+			<button type="submit" class="btn btn-primary"
+				ng-disabled="finform.$invalid"
+				ng-click="updatefindetail(finform.$valid)">Submit</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-warning" type="button"
+ng-click="close()">Cancel</button>
+<br><br>
+		</form>
+		
+	</div>
+	
+</body>
+</html>

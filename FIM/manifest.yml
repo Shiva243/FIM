@@ -1,0 +1,11 @@
+---
+ applications:
+ - name: FIM
+   buildpack: java_buildpack
+   path: build/libs/FIM.war
+   instances: 1
+   timeout: 180
+   memory: 512M
+   host: FIM
+   env:
+    JBP_CONFIG_OPENJDK: 'verion: 1.8.+'

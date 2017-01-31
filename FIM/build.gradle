@@ -11,18 +11,16 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'maven'
-group = 'com.fin'
-version = 'info'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+ apply plugin: 'war'
+war {
+	archiveName 'FIM.war'
+    }
 
-description = """FIMApp"""
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
-}
-
 
 
 repositories {
@@ -34,9 +32,9 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-rest:1.4.2.RELEASE"
     compile "org.springframework.boot:spring-boot-starter-thymeleaf:1.4.2.RELEASE"
 	compile	"org.springframework.boot:spring-boot-starter-data-mongodb:1.4.2.RELEASE"
-	
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version:'1.4.2.RELEASE'
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.2.RELEASE'
+	compile "org.springframework.cloud:spring-cloud-cloudfoundry-connector:1.2.3.RELEASE"
+	compile "org.springframework.cloud:spring-cloud-spring-service-connector:1.2.3.RELEASE"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.4.2.RELEASE'
     
     compile group: 'javax.servlet', name: 'jstl', version:'1.2'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version:'1.1.1'
@@ -47,6 +45,11 @@ dependencies {
 	compile "org.mockito:mockito-all:1.10.19"
     compile "org.powermock:powermock-mockito-release-full:1.6.4"
     compile "org.springframework.boot:spring-boot-devtools:1.4.2.RELEASE"
+   compile "org.springframework.cloud:spring-cloud-starter-config:1.2.2.RELEASE"
     
-    
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR3"
+	}
 }

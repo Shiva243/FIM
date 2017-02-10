@@ -13,7 +13,7 @@ app
 								.usernameexsist($scope.empc.user.userName)
 								.then(
 										function(response) {
-											if (response.data.status == 'false') {
+											if (response.data.status == 'Fail') {
 												$scope.usernameerror = 'This UserName already exsist, Please enter valid UserName.';
 											}
 										})
@@ -26,7 +26,7 @@ app
 								.useridexsist($scope.empc.user.idNo)
 								.then(
 										function(response) {
-											if (response.data.status == 'false') {
+											if (response.data.status == 'Fail') {
 												$scope.idnoerror = 'This IdNo already exsist, Please enter different IdNo.';
 											}
 										})
@@ -41,7 +41,7 @@ app
 										function(response) {
 											console.log("mobilenoexsist() "
 													+response.data.status);
-											if (response.data.status == 'false') {
+											if (response.data.status == 'Fail') {
 												$scope.mobilenoerror = 'This MobileNo already exsist, Please enter another MobileNo.';
 											}
 										})

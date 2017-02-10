@@ -4,7 +4,9 @@ package com.fin.logging;
 public class Log {
 
 	private static Logger logger = new LogSLF4JLogger();
-
+	private Log(){
+		
+	}
 	public static boolean isDebugEnabled(Class log) {
 		return logger.isDebugEnabled(log);
 	}

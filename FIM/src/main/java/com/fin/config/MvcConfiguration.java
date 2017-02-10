@@ -34,7 +34,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 		resolver.setOrder(1);
 		return resolver;
 	}
-
+	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/css/");
 		registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/");

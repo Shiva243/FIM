@@ -38,9 +38,9 @@ public class FinDetailsController {
 		finDetails.set_id(ResponseUtil.getCurrentDateTime());
 		finDetails.setModifyDate(finDetails.getCreatedDate());
 		if(finDetailService.save(finDetails)!=null){
-			return ResponseUtil.getJsonObject("Success","000","FinanceDetails Added Successfully").toString();
+			return ResponseUtil.getJsonObject(ResponseUtil.SUCCESS_MSG,ResponseUtil.SUCCESS_CODE,"FinanceDetails Added Successfully").toString();
 		}
-		return ResponseUtil.getJsonObject("Failed","001","Something wrong, please entered once again").toString();
+		return ResponseUtil.getJsonObject(ResponseUtil.FAIL_MSG,ResponseUtil.FAIL_CODE,"Something wrong, please entered once again").toString();
 	}
 	@RequestMapping(value="/chitnameexsist", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -52,7 +52,7 @@ public class FinDetailsController {
 	@ResponseBody
 	public List<FinanceDetails> getFinDetails(@RequestParam(value="chitName",defaultValue = "chitName", required = false) String chitName){
 		Log.info(this.getClass(), "Inside getFinDetails chitAmount ["+chitName+"]");
-		if(chitName.equals("chitName")){
+		if("chitName".equals(chitName)){
 			return finDetailService.findAll();
 		}else{
 			List<FinanceDetails> list=new ArrayList<>();
@@ -72,10 +72,11 @@ public class FinDetailsController {
 	public String updateFinDetail(@RequestBody FinanceDetails finDetails){
 		Log.info(this.getClass(), "Inside updateFinDetail chitName ["+finDetails.getChitName()+"]");
 		FinanceDetails dbFinDetail = finDetailService.findByChitName(finDetails.getChitName());
+		dbFinDetail.setModifyDate(ResponseUtil.getDateString("yyyy-MM-dd"));
 		if(finDetailService.save(setFindetails(dbFinDetail,finDetails)) !=null){
-			return ResponseUtil.getJsonObject("Success","000","FinanceDetails Updated Successfully").toString();
+			return ResponseUtil.getJsonObject(ResponseUtil.SUCCESS_MSG,ResponseUtil.SUCCESS_CODE,"FinanceDetails Updated Successfully").toString();
 		}
-		return ResponseUtil.getJsonObject("Failed","001","Something wrong, please try after some time").toString();
+		return ResponseUtil.getJsonObject(ResponseUtil.FAIL_MSG,ResponseUtil.FAIL_CODE,"Something wrong, please try after some time").toString();
 	}
 	
 	private FinanceDetails setFindetails(FinanceDetails dbFinDetail,FinanceDetails finDetail){

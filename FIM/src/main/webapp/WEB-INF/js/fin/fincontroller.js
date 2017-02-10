@@ -177,13 +177,13 @@ app
 app
 .controller(
 		"finUpdateController",
-		function($scope,$window,$http,finData) {
+		function($scope,$window,$http,finData,$modalInstance) {
 			 console.log(finData.getSelect);
 			 var $ctrl = this;
 			$scope.chitName=finData.getSelect.chitName;
 			 $scope.chitAmount=parseInt(finData.getSelect.chitAmount);
 			$scope.chitMonths=parseInt(finData.getSelect.chitMonths);
-			$scope.intrestRate=finData.getSelect.intrestRate;
+			$scope.intrestRate=parseFloat(finData.getSelect.intrestRate);
 			$scope.createdDate=new Date(finData.getSelect.createdDate);
 			$scope.updatefindetail=function(valid){
 				if(valid){
@@ -193,6 +193,7 @@ app
 						chitName : $scope.chitName,
 						intrestRate : $scope.intrestRate,
 					};
+					console.log(angular.toJson(data));
 					$http.post("/updatefindetail",angular.toJson(data)).then(function(response){
 						console.log(response);
 						$window.location.reload();
@@ -201,7 +202,7 @@ app
 			}
 			$scope.close = function () {
 				//$window.location.reload();
-				
+				$modalInstance.close();
 				};
 		});
 

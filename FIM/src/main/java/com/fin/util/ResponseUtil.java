@@ -10,6 +10,13 @@ import org.json.simple.JSONObject;
 
 
 public class ResponseUtil {
+	private ResponseUtil(){
+		
+	}
+	public static final String SUCCESS_MSG="Success";
+	public static final String FAIL_MSG="Fail";
+	public static final String SUCCESS_CODE="000";
+	public static final String FAIL_CODE="001";
 	@SuppressWarnings("unchecked")
 	public static JSONObject getJsonObject(String status, String errorCode, String errorMesg) {
 		JSONObject obj = new JSONObject();

@@ -14,7 +14,9 @@ finService.factory('finData',['$http',function($http){
 	findata.searchchitname=function(chitName){
 		return $http.get("/getfindetails",{params: {'chitName': chitName}});
 	}
-	
+	findata.cancel=function(){
+		return $http.get("/","");
+	}
 	return findata;
 }]);
 

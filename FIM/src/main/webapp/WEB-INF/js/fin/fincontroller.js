@@ -75,6 +75,10 @@ app
 											+ errResponse + "] value");
 								});
 					}
+					$scope.cancel=function(){
+						
+						$window.location.href="/";
+					}
 					
 						
 				});
@@ -117,7 +121,7 @@ app
 					
 					$http.get("/getfindetails").then(function(response) {
 						$scope.gridOptions1.data = response.data;
-						console.log($scope.gridOptions1.data);
+						//console.log($scope.gridOptions1.data);
 					});
 					$scope.searchchitname = function() {
 						console
@@ -146,30 +150,19 @@ app
 					}
 					
 					$scope.deletemodal = function(row) {
-						 console.log(row.entity._id);
-						 $window.alert("Are you sure delete the record?")
-						 $http.delete("/deletefindetail",{
-								params : {
-									'id' : row.entity._id
-								}
-							}).then(function(response){
-								console.log("delete successfully");
-								$window.location.reload();
-							},function(errorResponse){
-								console.log("can't able to delete the record, there is some internal issue");
-							});
+						 finData.getSelect=row.entity;
+						  var modalInstance= $modal.open({
+			        		 templateUrl: '/deletefin.html',
+			        		 controller: 'finDeleteController'
+						  });
+						
 			        };
 			        $scope.editmodal = function(row) {
 			        	 finData.getSelect=row.entity;
 			        	 console.log(finData.getSelect);
 			        	 var modalInstance= $modal.open({
 			        		 templateUrl: '/updatefin.html',
-			        		 controller: 'finUpdateController',
-			        		 bindings: {
-			        			    resolve: '<',
-			        			    close: '&',
-			        			    dismiss: '&'
-			        			  },
+			        		 controller: 'finUpdateController'
 			        		 });
 			        };
 						
@@ -179,7 +172,6 @@ app
 		"finUpdateController",
 		function($scope,$window,$http,finData,$modalInstance) {
 			 console.log(finData.getSelect);
-			 var $ctrl = this;
 			$scope.chitName=finData.getSelect.chitName;
 			 $scope.chitAmount=parseInt(finData.getSelect.chitAmount);
 			$scope.chitMonths=parseInt(finData.getSelect.chitMonths);
@@ -201,8 +193,25 @@ app
 				}
 			}
 			$scope.close = function () {
-				//$window.location.reload();
 				$modalInstance.close();
 				};
 		});
+app.controller("finDeleteController", function($scope,$http,finData,$modalInstance,$window){
+	console.log("Inside delete controller id ["+finData.getSelect._id+"]");
+	$scope.ok=function(){
+		 $http.delete("/deletefindetail",{
+				params : {
+					'id' : finData.getSelect._id
+				}
+			}).then(function(response){
+				console.log("delete successfully");
+				$window.location.reload();
+			},function(errorResponse){
+				console.log("can't able to delete the record, there is some internal issue");
+			});
+	}
+	$scope.cancel = function () {
+		$modalInstance.close();
+		};
+})
 

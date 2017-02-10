@@ -3,8 +3,7 @@ app
 		.controller(
 				"empController",
 				function($scope, UserData, $window) {
-					
-					
+
 					$scope.usernameexsist = function() {
 						console.log("validusername() "
 								+ $scope.empc.user.userName);
@@ -19,8 +18,7 @@ app
 										})
 					}
 					$scope.useridexsist = function() {
-						console.log("useridexsist() "
-								+ $scope.empc.user.idNo);
+						console.log("useridexsist() " + $scope.empc.user.idNo);
 						$scope.idnoerror = '';
 						UserData
 								.useridexsist($scope.empc.user.idNo)
@@ -34,13 +32,13 @@ app
 					$scope.mobilenoexsist = function() {
 						console.log("mobilenoexsist() "
 								+ $scope.empc.user.mobileNo);
-						$scope.mobilenoerror ='';
+						$scope.mobilenoerror = '';
 						UserData
 								.mobilenoexsist($scope.empc.user.mobileNo)
 								.then(
 										function(response) {
 											console.log("mobilenoexsist() "
-													+response.data.status);
+													+ response.data.status);
 											if (response.data.status == 'Fail') {
 												$scope.mobilenoerror = 'This MobileNo already exsist, Please enter another MobileNo.';
 											}
@@ -48,14 +46,22 @@ app
 					}
 					$scope.addUser = function(valid) {
 						if (valid) {
-							console.log("addUser Json data is [" +angular.toJson($scope.empc.user) + "]");
-							UserData.addUser(angular.toJson($scope.empc.user)).then(function(response) {
-								alert("User Registration Successfully");
-								$window.location.href = '/userlist';
-							},function(errorResponse){
-								alert("Can't able to add user, please try after some time");
-							});
+							console.log("addUser Json data is ["
+									+ angular.toJson($scope.empc.user) + "]");
+							UserData
+									.addUser(angular.toJson($scope.empc.user))
+									.then(
+											function(response) {
+												alert("User Registration Successfully");
+												$window.location.href = '/userlist';
+											},
+											function(errorResponse) {
+												alert("Can't able to add user, please try after some time");
+											});
 						}
+					}
+					$scope.cancel = function() {
+						$window.location.href = "/";
 					}
 
 				});

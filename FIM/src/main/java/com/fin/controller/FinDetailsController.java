@@ -28,8 +28,13 @@ public class FinDetailsController {
 		return "html/fin/findetailhome";
 	}
 	@RequestMapping("/updatefin")
-	public String fin(){
+	public String upateFin(){
 		return "html/fin/updatefin";
+	}
+	
+	@RequestMapping("/deletefin")
+	public String deleteFin(){
+		return "html/fin/deletefin";
 	}
 	@RequestMapping(value="/addfindetail", method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody

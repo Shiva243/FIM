@@ -3,7 +3,7 @@
 <head lang="en">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Finance Details</title>
-	<!--  <script
+<!--  <script
 		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script> 
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-resource.js"></script>
@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="./css/bootstrap.min.css"></link>
 <link rel="stylesheet" href="./css/userhome.css"></link>
 <link rel="stylesheet" href="./css/uigrid/ui-grid.css"></link>
-<link rel="icon" href="./images/fin/fin.jpg" type="image/gif" sizes="32x32">
+<link rel="icon" href="./images/fin/fin.jpg" type="image/gif"
+	sizes="32x32">
 <script src="./js/angular/ui-grid.js"></script>
 <script src="./js/angular/angular.min.js"></script>
 <script src="./js/fin/fincontroller.js"></script>
@@ -25,13 +26,12 @@
 	<div class="col-md-6 col-md-offset-3" ng-controller="finController">
 		<h2>Finance Details</h2>
 		<br>
-		<form name="finform">
+		<form name="finform" novalidate="novalidate">
 			<div class="form-group">
 				<label for="chitName">Chit Name:</label> <input type="text"
 					placeholder="Enter ChitName" class="form-control" id="chitName"
 					name="chitName" ng-model="chitName" ng-pattern="/^[a-zA-Z0-9 ]*$/"
-					ng-required="true" ng-change="chitnameexsist()" ng-minlength="5" 
-					"/>
+					ng-required="true" ng-change="chitnameexsist()" ng-minlength="5" "/>
 				<span
 					ng-show=" finform.chitName.$error.pattern && (!finform.$pristine|| finform.$submitted)">Enter
 					Alpha Numeric values only</span> <span ng-bind="chitnameerror"
@@ -62,9 +62,13 @@
 					class="form-control" id="createdDate" name="createdDate"
 					ng-model="date" value={{createdDate}} onkeydown="return false" />
 			</div> -->
-			<button type="submit" class="btn btn-primary"
-				ng-disabled="finform.$invalid"
-				ng-click="addfindetail(finform.$valid)">Submit</button>
+			<div  class="modal-body" align="right">
+				<button type="submit" class="btn btn-primary"
+					ng-disabled="finform.$invalid"
+					ng-click="addfindetail(finform.$valid)">Submit</button>
+				<button type="submit" class="btn btn-primary"
+					 ng-click="cancel()">Cancel</button>
+			</div>
 		</form>
 
 		<!--  <input type="search" name="nameSearch" id="nameSearch" ng-model="nameSearch" ng-required="true">
@@ -81,6 +85,6 @@
 
 		<div ui-grid="gridOptions1" class="grid"></div>
 	</div>
-	
+
 </body>
 </html>

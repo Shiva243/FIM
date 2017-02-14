@@ -17,8 +17,10 @@ public class UserDetails {
 	private String idNo;
 	@Indexed(unique = true)
 	private String mobileNo;
-	private String sex;
+	private String gendar;
 	private String address;
+	private String createdDate;
+	private String modifyDate;
 
 	public String getFirstName() {
 		return firstName;
@@ -68,12 +70,12 @@ public class UserDetails {
 		this.mobileNo = mobileNo;
 	}
 
-	public String getSex() {
-		return sex;
+	public String getGendar() {
+		return gendar;
 	}
 
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGendar(String gendar) {
+		this.gendar = gendar;
 	}
 
 	public String getAddress() {
@@ -90,6 +92,22 @@ public class UserDetails {
 
 	public void set_id(Long i) {
 		this._id = i;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getModifyDate() {
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
 	}
 
 }

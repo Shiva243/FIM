@@ -2,27 +2,36 @@
 <html>
 
 <head>
-<link rel="styleSheet" href="http://ui-grid.info/release/ui-grid.min.css" />
+<!-- <link rel="styleSheet" href="http://ui-grid.info/release/ui-grid.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-animate.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular-touch.min.js"></script>
 <script src="http://ui-grid.info/release/ui-grid.js"></script>
-<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script> -->
 
+<script src="./js/angular/angular.js"></script>
+<script src="./js/angular/angular-resource.js"></script>
+<script src="./js/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+<link rel="stylesheet" href="./css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="./css/userhome.css"></link>
+<link rel="stylesheet" href="./css/uigrid/ui-grid.css"></link>
+<link rel="icon" href="./images/fin/fin.jpg" type="image/gif"
+	sizes="32x32">
+<script src="./js/angular/ui-grid.js"></script>
+<script src="./js/angular/angular.min.js"></script>
 
-
-<script src="./js/user/script.js"></script>
-
+<script src="./js/user/userlistcontroller.js"></script>
+<script src="./js/user/userservice.js"></script>
 </head>
 
-<body ng-app="influx">
-
-	<div ng-controller="MainCtrl as vm">
-		<div style="padding-left: 30px;">
-			<button type="button" id="addRow" class="btn btn-success" ng-click="addRow()">Add Row</button>
-		</div>
-		<br />
-		<div id="serviceGrid" 
+<body ng-app="userApp">
+<br>
+	<div class="col-md-4 col-md-offset-2" ng-controller="userController">
+	<div class="modal-header">
+				<h2 class="modal-title">User Information</h2>
+				<b style="color: red;" ng-bind="error" ></b>
+				</div>
+		<div 
 		ui-grid-move-columns 
 		ui-grid-selection
 		ui-grid-resize-columns
@@ -32,7 +41,11 @@
 		ui-grid-auto-resize
 		
 		ui-grid-edit
-		ui-grid="vm.serviceGrid" class="influxGrid"></div>
+		ui-grid="userGridOptions" class="userGrid"></div>
+		<br>
+		<div>
+			<button type="button" id="addUser" class="btn btn-success" ng-click="addUser()">Add User</button>
+		</div>
 	</div>
 	
 </body>

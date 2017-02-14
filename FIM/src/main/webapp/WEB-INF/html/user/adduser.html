@@ -1,45 +1,47 @@
 <html>
 <head lang="en">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>UserDetails</title>
-<script src="./js//angular/angular.min.js"></script>
+<title>User</title>
 <link rel="stylesheet" href="./css/bootstrap.min.css"></link>
 <link rel="stylesheet" href="./css/userhome.css"></link>
-<script src="./js/user/usercontroller.js"></script>
-<script src="./js/user/userservice.js"></script>
-<link rel="icon" href="./images/user/register.png" type="image/gif" sizes="16x16">
+<script src="./js/angular/angular.min.js"></script>
+<script src="./js/angular/angular.js"></script>
+<script src="./js/angular/angular-resource.js"></script>
+<script src="./js/bootstrap/ui-bootstrap-tpls-0.13.4.js"></script>
+
 </head>
 <body>
-	<div ng-app="empform" ng-controller="empController as empc">
-		<div class="col-md-4 col-md-offset-3">
-			<h2>User Details</h2>
-			<br>
+	<div  ng-controller="addUserController">
 			<form role="form" name="loginform" 
 				novalidate="novalidate">
-				<div class="form-group" >
+				<div class="modal-content">
+				 <div class="modal-header">
+				<h2 class="modal-title">Add User Details</h2>
+				</div>
+				<div class="modal-body" >
 					<label for="firstName">FirstName:</label> <input type="text"
 						placeholder="Enter Name" class="form-control" id="firstName"
-						name="firstName" ng-model="empc.user.firstName" ng-maxlength="15"
+						name="firstName" ng-model="firstName" ng-maxlength="15"
 						ng-required="true" ng-pattern="/^[a-zA-Z]*$/" style='text-transform:uppercase'/> <span
 						ng-show=" loginform.firstName.$error.maxlength && (!loginform.$pristine|| loginform.$submitted)">First 
 						Name not allowed more than 15 char's.</span> <span
 						ng-show=" loginform.firstName.$error.pattern && (!loginform.$pristine|| loginform.$submitted)">Enter
 						only Alphabets.</span>
 				</div>
-				<div class="form-group" >
+				<div class="modal-body" >
 					<label for="lastName">LastName:</label> <input type="text"
 						placeholder="Enter LastName" class="form-control" id="lastName"
-						name="lastName" ng-model="empc.user.lastName" ng-maxlength="20"
+						name="lastName" ng-model="lastName" ng-maxlength="20"
 						ng-required="true" ng-pattern="/^[a-zA-Z]*$/" style='text-transform:uppercase'/> <span
 						ng-show=" loginform.lastName.$error.maxlength && (!loginform.$pristine|| loginform.$submitted)">Last
 						Name not allowed more than 20 char's.</span> <span
 						ng-show=" loginform.lastName.$error.pattern && (!loginform.$pristine|| loginform.$submitted)">Enter
 						only Alphabets.</span>
 				</div>
-				<div class="form-group">
+				<div class="modal-body">
 					<label for="userName">UserName:</label> <input type="text"
 						placeholder="Enter UserName" class="form-control" id="userName"
-						name="userName" ng-model="empc.user.userName" ng-maxlength="10" ng-minlength="5"
+						name="userName" ng-model="userName" ng-maxlength="10" ng-minlength="5"
 						ng-required="true" ng-pattern="/^[a-zA-Z0-9]*$/" ng-change="usernameexsist()"/> <span 
 						ng-show=" loginform.userName.$error.maxlength && (!loginform.$pristine|| loginform.$submitted)">User
 						Name not allowed more than 10 char's.</span>  <span 
@@ -49,32 +51,34 @@
 						only Alpha-Numeric values.</span>
 						<span  ng-bind="usernameerror" >
 				</div>
-				<div class="form-group">
+				<div class="modal-body">
 					<label for="age">Age:</label> <input type="number"
 						placeholder="Enter Age" class="form-control" id="age" name="age"
-						ng-model="empc.user.age" min="18" max="99" ng-required="true" />
+						ng-model="age" min="18" max="99" ng-required="true" />
 						<span 
 						ng-show=" loginform.age.$error.min && (!loginform.$pristine|| loginform.$submitted)">You
 						must be atleast 18 years old.</span> <span
 						ng-show=" loginform.age.$error.max && (!loginform.$pristine|| loginform.$submitted)">Age
 						shouldn't be more than 99 years.</span>
 				</div>
-				<div class="form-group">
+				<div class="modal-body">
 					<label for="idNo">Identification Number:</label> <input type="text"
 						placeholder="Enter Adhar/Pancard Number"
 						class="form-control" id="idNo" name="idNo"
-						ng-model="empc.user.idNo" ng-pattern="/^[a-zA-Z0-9]*$/" ng-required="true"   ng-change="useridexsist()"
-						style='text-transform:uppercase'/>
+						ng-model="idNo" ng-pattern="/^[a-zA-Z0-9]*$/" ng-required="true"   ng-change="useridexsist()"
+						style='text-transform:uppercase' 	ng-minlength = "10"/>
 						<span 
 						ng-show=" loginform.idNo.$error.pattern && (!loginform.$pristine|| loginform.$submitted)">Enter
 						only Alpha-Numeric values.</span>
+						<span 
+						ng-show=" loginform.idNo.$error.minlength && (!loginform.$pristine|| loginform.$submitted)">Please enter atleast min 10 values .</span>
 						<span  ng-bind="idnoerror" >
 				</div>
-				<div class="form-group">
+				<div class="modal-body">
 					<label for="mobileNo">Mobile Number:</label> <input type="text"
 						placeholder="Enter Mobile Number "
 						class="form-control" id="mobileNo" name="mobileNo"
-						ng-model="empc.user.mobileNo" ng-pattern="/^[0-9]*$/" 
+						ng-model="mobileNo" ng-pattern="/^[0-9]*$/" 
 						ng-minlength = "10" ng-maxlength="10"
 						ng-required="true"   ng-change="mobilenoexsist()" />
 						<span 
@@ -86,31 +90,31 @@
 						ng-show=" loginform.mobileNo.$error.maxlength && (!loginform.$pristine|| loginform.$submitted)">Please enter only max 10 numbers .</span> 
 						<span  ng-bind="mobilenoerror" >
 				</div>
-				<div class="form-group">
-					<label for="sex">Sex:</label> <select type="text"
-						class="form-control" id="sex" name="sex" ng-model="empc.user.sex"
+				<div class="modal-body">
+					<label for="sex">Gendar:</label> <select type="text"
+						class="form-control" id="sex" name="gendar" ng-model="gendar"
 						required>
 						<option value="">Please choose</option>
 						<option value="male">Male</option>
 						<option value="female">Female</option>
 					</select>
 				</div>
-				<div class="form-group">
+				<div class="modal-body">
 					<label for="address">Address:</label> <textarea
 						placeholder="Enter Address" class="form-control"
 						id="address" name="address" rows="4" cols="50"
-						ng-model="empc.user.address" ng-required="true" >
+						ng-model="address" ng-required="true" >
 					</textarea>
 				</div>
-				<div  class="modal-body" align="right">
+				<div  class="modal-footer" align="justify">
 				<button type="submit" class="btn btn-primary"
 					ng-disabled="loginform.$invalid"
 					ng-click="addUser(loginform.$valid)">Submit</button>
 				<button type="submit" class="btn btn-primary"
 					 ng-click="cancel()">Cancel</button>
 			</div>
+			</div>
 			</form>
 		</div>
-	</div>
 </body>
 </html>

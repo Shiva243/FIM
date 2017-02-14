@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetails findByUserName(String userName) {
-		Log.info(this.getClass(), "Inside findByUserName userName is [" + userName + "]");
 		return userRepo.findByUserName(userName);
 	}
 
@@ -29,20 +28,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetails findByIdNo(String idNo) {
-		Log.info(this.getClass(), "Inside findByIdNo idNo is [" + idNo + "]");
 		return userRepo.findByIdNo(idNo);
 	}
 
 	@Override
 	public UserDetails findByMobileNo(String mobileNo) {
-		Log.info(this.getClass(), "Inside findByMobileNo mobileNo is [" + mobileNo + "]");
 		return userRepo.findByMobileNo(mobileNo);
 	}
 
 	@Override
 	public List<UserDetails> findAll() {
-		Log.info(this.getClass(), "Inside findAll");
+		//Log.info(this.getClass(), "Inside findAll");
 		return userRepo.findAll();
 	}
-
+	@Override
+	public void deleteUserById(Long id) {
+		Log.info(this.getClass(), "Inside deleteUserById ["+id+"]");
+		 userRepo.delete(id);
+	}
 }

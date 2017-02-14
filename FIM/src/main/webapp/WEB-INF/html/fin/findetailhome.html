@@ -31,7 +31,7 @@
 				<label for="chitName">Chit Name:</label> <input type="text"
 					placeholder="Enter ChitName" class="form-control" id="chitName"
 					name="chitName" ng-model="chitName" ng-pattern="/^[a-zA-Z0-9 ]*$/"
-					ng-required="true" ng-change="chitnameexsist()" ng-minlength="5" "/>
+					ng-required="true" ng-change="chitnameexsist()" ng-minlength="5" style='text-transform:uppercase'/>
 				<span
 					ng-show=" finform.chitName.$error.pattern && (!finform.$pristine|| finform.$submitted)">Enter
 					Alpha Numeric values only</span> <span ng-bind="chitnameerror"

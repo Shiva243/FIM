@@ -11,4 +11,5 @@ public interface UserService {
 	UserDetails findByIdNo(String idNo);
 	UserDetails findByMobileNo(String mobileNo);
 	List<UserDetails> findAll();
+	void deleteUserById(Long id);
 }

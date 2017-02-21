@@ -1,11 +1,11 @@
 ---
  applications:
- - name: FIM
+ - name: FIMTEST
    buildpack: java_buildpack
    path: ./build/libs/FIM.war
    instances: 1
    timeout: 180
    memory: 300M
-   host: FIM
+   host: FIMTEST
    env:
     JBP_CONFIG_OPENJDK: 'verion: 1.8.+'

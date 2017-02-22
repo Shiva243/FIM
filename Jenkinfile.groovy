@@ -8,7 +8,5 @@ node{
     stage 'Build project'
         dir('FIM')
             sh 'gradle clean build'
-            echo 'build successfully'
-    
-            
+            echo 'build successfully'    
 }

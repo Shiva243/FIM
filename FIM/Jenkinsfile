@@ -1,35 +1,29 @@
 pipeline {
-    try{
-      stages{
-        stage ('Build'){
-            
-            git credentialsId: 'a1a2265a-6c99-43cd-941d-62ee5b4b10e1', url: 'https://github.com/Shiva243/FIM.git'
-            dir('FIM') {
-                echo "build started"
-                sh 'gradle clean build'
-                 //def bu= build 'FIM'
-                 // echo "build status : '${bu}'"
-             }
-            
-        }
-        stage ('deploy'){
-            dir('FIM') {
-               sh 'cf login -a https://api.run.pivotal.io -u svelagandula@nisum.com -p Neethu@243'
-                sh 'cf push FIMTEST' 
-            }
-           
-        }
-        currentBuild.result = 'SUCCESS'
-      }
-    }catch(Exception e){
-        currentBuild.result = 'Failed'
-        echo "Failed: '${currentBuild.result}'"
+    agent any
+    parameters {
+        string (
+            defaultValue: '*',
+            description: '',
+            name : 'BRANCH_PATTERN')
+        booleanParam (
+            defaultValue: false,
+            description: '',
+            name : 'FORCE_FULL_BUILD')
     }
-   echo "Hello World: '${currentBuild.result}'"
-   stage ('mail'){
-       mail bcc: '', body: "Build ${currentBuild.result}", cc: '', from: '', replyTo: '', subject: "Build ${currentBuild.result}", to: 'shivav809@gmail.com'
 
-   }
+    stages {
+        stage ('Pullrequest for code') {
+            steps {
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "origin/${BRANCH_PATTERN}"]],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [[$class: 'LocalBranch']],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[
+                        credentialsId: 'a1a2265a-6c99-43cd-941d-62ee5b4b10e1',
+                        url: 'https://github.com/Shiva243/FIM.git']]])
+            }
+        }
    
-    
+    }
 }

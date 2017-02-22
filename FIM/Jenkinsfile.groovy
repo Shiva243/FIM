@@ -1,4 +1,6 @@
 pipeline {
+    node{
+        echo 'test';
     agent any
     parameters {
         string (
@@ -25,5 +27,6 @@ pipeline {
             }
         }
    
+    }
     }
 }

@@ -20,6 +20,7 @@ pipeline {
            
         }
         currentBuild.result = 'SUCCESS'
+      }
     }catch(Exception e){
         currentBuild.result = 'Failed'
         echo "Failed: '${currentBuild.result}'"
@@ -29,6 +30,6 @@ pipeline {
        mail bcc: '', body: "Build ${currentBuild.result}", cc: '', from: '', replyTo: '', subject: "Build ${currentBuild.result}", to: 'shivav809@gmail.com'
 
    }
-   }
+   
     
 }
